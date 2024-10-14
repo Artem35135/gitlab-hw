@@ -1,20 +1,23 @@
-# Домашнее задание к занятию "`GIT`" - `Засим Артем`
+# Домашнее задание к занятию "Что такое DevOps. СI/СD" - `Засим Артем`
 
 
 ---
 
 ### Задание 1
 
-https://github.com/Artem35135/mygit/commit/88b9cd2eed21df43440a2e142bf0d6cb72042f30
+https://github.com/Artem35135/gitlab-hw/blob/main/img/1.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/2.png
 
 ---
 
 ### Задание 2
 
-https://github.com/Artem35135/mygit/commit/4129896b4395fde61672211115355cbf18b5d8ef
+https://github.com/Artem35135/gitlab-hw/blob/main/img/3.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/4.png
 
 ---
 
 ### Задание 3
 
-https://github.com/Artem35135/mygit/network
+https://github.com/Artem35135/gitlab-hw/blob/main/img/5.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/6.png
