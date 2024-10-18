@@ -1,23 +1,39 @@
-# Домашнее задание к занятию "Что такое DevOps. СI/СD" - `Засим Артем`
+# Домашнее задание к занятию "GitLab" - "Засим Артем"
+
 
 
 ---
 
 ### Задание 1
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/1.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/2.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/gitlab_1.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/gitlab_2.png
+
 
 ---
 
 ### Задание 2
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/3.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/4.png
+Поле для вставки кода...
 
----
+cat .gitlab-ci.yml 
+stages:
+  - test
+  - build
 
-### Задание 3
+test:
+  stage: test
+  image: golang:1.17
+  script:
+   - go test .
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/5.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/6.png
+build:
+  stage: build
+  image: docker:latest
+  script:
+   - docker build .
+
+
+https://github.com/Artem35135/gitlab-hw/blob/main/img/gitlab_3.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/gitlab_4.png
+
