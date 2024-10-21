@@ -1,39 +1,23 @@
-# Домашнее задание к занятию "GitLab" - "Засим Артем"
-
+# Домашнее задание к занятию «Система мониторинга Prometheus» - "Засим Артем"
 
 
 ---
 
 ### Задание 1
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/gitlab_1.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/gitlab_2.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/prometheus_1.png
 
 
 ---
 
 ### Задание 2
 
-Поле для вставки кода...
+https://github.com/Artem35135/gitlab-hw/blob/main/img/prometheus_2.png
 
-cat .gitlab-ci.yml 
-stages:
-  - test
-  - build
+---
 
-test:
-  stage: test
-  image: golang:1.17
-  script:
-   - go test .
+### Задание 3
 
-build:
-  stage: build
-  image: docker:latest
-  script:
-   - docker build .
-
-
-https://github.com/Artem35135/gitlab-hw/blob/main/img/gitlab_3.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/gitlab_4.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/prometheus_3.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/prometheus_4.png
 
