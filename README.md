@@ -1,20 +1,19 @@
-# Домашнее задание к занятию "Система мониторинга Zabbix. Часть 2" - "Засим Артем"
+# Домашнее задание к занятию «Disaster recovery и Keepalived» - "Засим Артем"
 
 
 ---
 
 ### Задание 1
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%201.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/my_hsrp_advanced.pkt
 
 ---
 
-### Задание 3
+### Задание 2
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%202-3.png
-
----
-
-### Задание 4
-
-https://github.com/Artem35135/gitlab-hw/blob/main/img/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%204.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/keepalived1.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/keepalived2.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/keepalived3.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/keepalived4.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/check_server.sh.txt
+https://github.com/Artem35135/gitlab-hw/blob/main/img/keepalived.conf
