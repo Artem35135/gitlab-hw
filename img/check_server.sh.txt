@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Проверка доступности порта 80
+
+if ! curl -s --head --request GET http://localhost:80 | grep "200 OK" > /dev/null; then
+
+    echo "Nginx server not reachable or returning error."
+
+    exit 1
+
+fi
+
+# Проверка наличия файла index.html
+
+if [ ! -f /var/www/html/index.nginx-debian.html ]; then
+
+    echo "index.html file not found!"
+
+    exit 2
+
+fi
+
+exit 0
+
