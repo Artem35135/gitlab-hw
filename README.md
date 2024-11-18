@@ -1,19 +1,17 @@
-# Домашнее задание к занятию «Disaster recovery и Keepalived» - "Засим Артем"
+# Домашнее задание к занятию «Кластеризация и балансировка нагрузки» - "Засим Артем"
 
 
 ---
 
 ### Задание 1
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/my_hsrp_advanced.pkt
+https://github.com/Artem35135/gitlab-hw/blob/main/img/HAProxy1.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/haproxy.cfg
 
 ---
 
 ### Задание 2
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/keepalived1.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/keepalived2.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/keepalived3.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/keepalived4.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/check_server.sh.txt
-https://github.com/Artem35135/gitlab-hw/blob/main/img/keepalived.conf
+https://github.com/Artem35135/gitlab-hw/blob/main/img/HAProxy2.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/HAProxy3.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/haproxy2.cfg
