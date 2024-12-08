@@ -1,17 +1,11 @@
-# Домашнее задание к занятию «Кластеризация и балансировка нагрузки» - "Засим Артем"
+# Домашнее задание к занятию "Отказоустойчивость в облаке" - "Засим Артем"
 
 
 ---
 
 ### Задание 1
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/HAProxy1.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/haproxy.cfg
+https://github.com/Artem35135/gitlab-hw/blob/main/img/main.tf
+https://github.com/Artem35135/gitlab-hw/blob/main/img/terraform_yc1.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/terraform_yc2.png
 
----
-
-### Задание 2
-
-https://github.com/Artem35135/gitlab-hw/blob/main/img/HAProxy2.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/HAProxy3.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/haproxy2.cfg
