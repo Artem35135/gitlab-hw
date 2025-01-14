@@ -1,43 +1,53 @@
-# Домашнее задание к занятию  "ELK" - "Засим Артем"
+# Домашнее задание к занятию  «Очереди RabbitMQ» - "Засим Артем"
 
 
 ---
 
 ### Задание 1
 
-Установите и запустите Elasticsearch, после чего поменяйте параметр cluster_name на случайный.
+Используя Vagrant или VirtualBox, создайте виртуальную машину и установите RabbitMQ. Добавьте management plug-in и зайдите в веб-интерфейс.
 
-Приведите скриншот команды 'curl -X GET 'localhost:9200/_cluster/health?pretty', сделанной на сервере 
-с установленным Elasticsearch. Где будет виден нестандартный cluster_name.
+Итогом выполнения домашнего задания будет приложенный скриншот веб-интерфейса RabbitMQ.
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/elasticsearch.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/Rabbit_1.png
 
 ---
 
 ### Задание 2
 
-Установите и запустите Kibana.
+Используя приложенные скрипты, проведите тестовую отправку и получение сообщения. Для отправки сообщений необходимо запустить скрипт producer.py.
 
-Приведите скриншот интерфейса Kibana на странице http://<ip вашего сервера>:5601/app/dev_tools#/console, 
-где будет выполнен запрос GET /_cluster/health?pretty
+Для работы скриптов вам необходимо установить Python версии 3 и библиотеку Pika. Также в скриптах нужно указать IP-адрес машины, на которой запущен RabbitMQ, заменив localhost на нужный IP.
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/elasticsearch%2Bkibana.png
+$ pip install pika
+Зайдите в веб-интерфейс, найдите очередь под названием hello и сделайте скриншот. После чего запустите второй скрипт consumer.py и сделайте скриншот результата выполнения скрипта
+
+В качестве решения домашнего задания приложите оба скриншота, сделанных на этапе выполнения.
+
+https://github.com/Artem35135/gitlab-hw/blob/main/img/Rabbit_2.1.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/Rabbit_2.2.png
 
 ---
 
 ### Задание 3
 
-Установите и запустите Logstash и Nginx. С помощью Logstash отправьте access-лог Nginx в Elasticsearch.
-Приведите скриншот интерфейса Kibana, на котором видны логи Nginx.
+Используя Vagrant или VirtualBox, создайте вторую виртуальную машину и установите RabbitMQ. Добавьте в файл hosts название и IP-адрес каждой машины, чтобы машины могли видеть друг друга по имени.
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/elk%2Bnginx.png
+Пример содержимого hosts файла:
 
----
+$ cat /etc/hosts
+192.168.0.10 rmq01
+192.168.0.11 rmq02
+После этого ваши машины могут пинговаться по имени.
 
-### Задание 4
+Затем объедините две машины в кластер и создайте политику ha-all на все очереди.
 
-Установите и запустите Filebeat. Переключите поставку логов Nginx с Logstash на Filebeat.
-Приведите скриншот интерфейса Kibana, на котором видны логи Nginx, которые были отправлены через Filebeat.
+В качестве решения домашнего задания приложите скриншоты из веб-интерфейса с информацией о доступных нодах в кластере и включённой политикой.
 
-С этим заданием у меня затык. Срок сдачи сегодня вечером, а времени разбираться больше нет. Позже, для себя, найду в чем была проблема,
-но пока отправляю как есть.
+Также приложите вывод команды с двух нод:
+
+$ rabbitmqctl cluster_status
+
+https://github.com/Artem35135/gitlab-hw/blob/main/img/Rabbit_3.1.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/Rabbit_3.2.png
+https://github.com/Artem35135/gitlab-hw/blob/main/img/Rabbit_3.3.png
