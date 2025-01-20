@@ -45,4 +45,4 @@ https://github.com/Artem35135/gitlab-hw/blob/main/img/mysql_5.png
 Название таблицы | Название первичного ключа
 customer         | customer_id
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/%D0%9B%D0%B8%D1%81%D1%82%20Microsoft%20Excel.xlsx
+https://github.com/Artem35135/gitlab-hw/blob/main/img/primary%20keys.txt
