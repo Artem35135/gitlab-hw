@@ -1,48 +1,47 @@
-# Домашнее задание к занятию  «Работа с данными (DDL/DML)» - "Засим Артем"
+# Домашнее задание к занятию  «SQL. Часть 1» - "Засим Артем"
 
 
 ---
 
 ### Задание 1
 
-1.1. Поднимите чистый инстанс MySQL версии 8.0+. Можно использовать локальный сервер или контейнер Docker.
+Получите уникальные названия районов из таблицы с адресами, которые начинаются на “K” и заканчиваются на “a” и не содержат пробелов.
 
-1.2. Создайте учётную запись sys_temp.
-
-1.3. Выполните запрос на получение списка пользователей в базе данных. (скриншот)
-
-https://github.com/Artem35135/gitlab-hw/blob/main/img/mysql_1.png
-
-1.4. Дайте все права для пользователя sys_temp.
-
-1.5. Выполните запрос на получение списка прав для пользователя sys_temp. (скриншот)
-
-https://github.com/Artem35135/gitlab-hw/blob/main/img/mysql_2.png
-
-1.6. Переподключитесь к базе данных от имени sys_temp.
-
-Для смены типа аутентификации с sha2 используйте запрос:
-
-ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-1.6. По ссылке https://downloads.mysql.com/docs/sakila-db.zip скачайте дамп базы данных.
-
-1.7. Восстановите дамп в базу данных.
-
-1.8. При работе в IDE сформируйте ER-диаграмму получившейся базы данных. При работе в командной строке используйте команду для получения всех таблиц базы данных. (скриншот)
-
-https://github.com/Artem35135/gitlab-hw/blob/main/img/mysql_3.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/mysql_4.png
-https://github.com/Artem35135/gitlab-hw/blob/main/img/mysql_5.png
-
-Результатом работы должны быть скриншоты обозначенных заданий, а также простыня со всеми запросами.
+SELECT *
+FROM sakila.address a
+WHERE LEFT (district, 1) = "K" AND RIGHT (district, 1) = "a" AND district NOT LIKE "% %";
 
 ---
 
 ### Задание 2
 
-Составьте таблицу, используя любой текстовый редактор или Excel, в которой должно быть два столбца: в первом должны быть названия таблиц восстановленной базы, во втором названия первичных ключей этих таблиц. Пример: (скриншот/текст)
+Получите из таблицы платежей за прокат фильмов информацию по платежам, которые выполнялись в промежуток с 15 июня 2005 года 
+по 18 июня 2005 года включительно и стоимость которых превышает 10.00.
 
-Название таблицы | Название первичного ключа
-customer         | customer_id
+SELECT *
+FROM sakila.payment
+WHERE payment_date BETWEEN '2005-06-15 00:00:00' AND '2005-06-18 23:59:59' AND amount > 10;
 
-https://github.com/Artem35135/gitlab-hw/blob/main/img/primary%20keys.txt
+---
+
+### Задание 3
+
+Получите последние пять аренд фильмов.
+
+SELECT * FROM sakila.rental ORDER BY rental_date DESC LIMIT 5;
+
+---
+
+### Задание 4
+
+Одним запросом получите активных покупателей, имена которых Kelly или Willie.
+
+Сформируйте вывод в результат таким образом:
+
+все буквы в фамилии и имени из верхнего регистра переведите в нижний регистр,
+замените буквы 'll' в именах на 'pp'.
+
+SELECT LOWER(REPLACE(first_name, 'LL', 'pp')) AS modified_first_name,
+       LOWER(REPLACE(last_name, 'LL', 'pp')) AS modified_last_name
+FROM sakila.customer
+WHERE LOWER(first_name) IN ('kelly', 'willie') AND active = 1;
