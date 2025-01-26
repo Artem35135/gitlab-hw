@@ -1,47 +1,49 @@
-# Домашнее задание к занятию  «SQL. Часть 1» - "Засим Артем"
+# Домашнее задание к занятию  «SQL. Часть 2» - "Засим Артем"
 
 
 ---
 
 ### Задание 1
 
-Получите уникальные названия районов из таблицы с адресами, которые начинаются на “K” и заканчиваются на “a” и не содержат пробелов.
+Одним запросом получите информацию о магазине, в котором обслуживается более 300 покупателей, и выведите в результат следующую информацию:
 
-SELECT *
-FROM sakila.address a
-WHERE LEFT (district, 1) = "K" AND RIGHT (district, 1) = "a" AND district NOT LIKE "% %";
+фамилия и имя сотрудника из этого магазина;
+город нахождения магазина;
+количество пользователей, закреплённых в этом магазине.
+
+SELECT COUNT(*) AS Count, s2.first_name, c2.city 
+FROM sakila.customer c
+JOIN sakila.store s ON c.store_id = s.store_id
+JOIN sakila.staff s2 ON s.manager_staff_id = s2.staff_id 
+JOIN sakila.address a ON s.address_id = a.address_id
+JOIN sakila.city c2 ON a.city_id = c2.city_id
+GROUP BY c.store_id
+HAVING COUNT(*) > 300;
 
 ---
 
 ### Задание 2
 
-Получите из таблицы платежей за прокат фильмов информацию по платежам, которые выполнялись в промежуток с 15 июня 2005 года 
-по 18 июня 2005 года включительно и стоимость которых превышает 10.00.
+Получите количество фильмов, продолжительность которых больше средней продолжительности всех фильмов.
 
-SELECT *
-FROM sakila.payment
-WHERE payment_date BETWEEN '2005-06-15 00:00:00' AND '2005-06-18 23:59:59' AND amount > 10;
+SELECT COUNT(*) AS Count 
+FROM sakila.film f 
+WHERE f.length > (SELECT AVG(f2.length) FROM sakila.film f2);
+
 
 ---
 
 ### Задание 3
 
-Получите последние пять аренд фильмов.
+Получите информацию, за какой месяц была получена наибольшая сумма платежей, и добавьте информацию по количеству аренд за этот месяц.
 
-SELECT * FROM sakila.rental ORDER BY rental_date DESC LIMIT 5;
-
----
-
-### Задание 4
-
-Одним запросом получите активных покупателей, имена которых Kelly или Willie.
-
-Сформируйте вывод в результат таким образом:
-
-все буквы в фамилии и имени из верхнего регистра переведите в нижний регистр,
-замените буквы 'll' в именах на 'pp'.
-
-SELECT LOWER(REPLACE(first_name, 'LL', 'pp')) AS modified_first_name,
-       LOWER(REPLACE(last_name, 'LL', 'pp')) AS modified_last_name
-FROM sakila.customer
-WHERE LOWER(first_name) IN ('kelly', 'willie') AND active = 1;
+SELECT
+    DATE_FORMAT(p.payment_date, '%Y-%m') AS payment_month,
+    SUM(p.amount) AS total_amount,
+    COUNT(DISTINCT r.rental_id) AS total_rentals
+FROM sakila.payment p
+LEFT JOIN sakila.rental r
+ON p.rental_id = r.rental_id
+GROUP BY DATE_FORMAT(p.payment_date, '%Y-%m')
+ORDER BY total_amount DESC
+LIMIT 1;
