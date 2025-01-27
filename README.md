@@ -1,49 +1,58 @@
-# Домашнее задание к занятию  «SQL. Часть 2» - "Засим Артем"
+# Домашнее задание к занятию  «Индексы» - "Засим Артем"
 
 
 ---
 
 ### Задание 1
 
-Одним запросом получите информацию о магазине, в котором обслуживается более 300 покупателей, и выведите в результат следующую информацию:
+Напишите запрос к учебной базе данных, который вернёт процентное отношение 
+общего размера всех индексов к общему размеру всех таблиц.
 
-фамилия и имя сотрудника из этого магазина;
-город нахождения магазина;
-количество пользователей, закреплённых в этом магазине.
-
-SELECT COUNT(*) AS Count, s2.first_name, c2.city 
-FROM sakila.customer c
-JOIN sakila.store s ON c.store_id = s.store_id
-JOIN sakila.staff s2 ON s.manager_staff_id = s2.staff_id 
-JOIN sakila.address a ON s.address_id = a.address_id
-JOIN sakila.city c2 ON a.city_id = c2.city_id
-GROUP BY c.store_id
-HAVING COUNT(*) > 300;
+SELECT ROUND(SUM(INDEX_LENGTH) / SUM(DATA_LENGTH + INDEX_LENGTH) * 100, 2) AS index_to_table_ratio_percentage
+FROM information_schema.tables
+WHERE TABLE_SCHEMA = 'sakila';
 
 ---
 
 ### Задание 2
 
-Получите количество фильмов, продолжительность которых больше средней продолжительности всех фильмов.
+Выполните explain analyze следующего запроса:
 
-SELECT COUNT(*) AS Count 
-FROM sakila.film f 
-WHERE f.length > (SELECT AVG(f2.length) FROM sakila.film f2);
+select distinct 
+  concat(c.last_name, ' ', c.first_name), 
+  sum(p.amount) over (partition by c.customer_id, f.title)
+from payment p, rental r, customer c, inventory i, film f
+where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date and r.customer_id = c.customer_id and i.inventory_id = r.inventory_id
 
+перечислите узкие места;
+оптимизируйте запрос: внесите корректировки по использованию операторов, при необходимости добавьте индексы.
 
----
+Узкие места запроса:
+- DISTINCT заставляет базу данных выполнять сортировку или хеширование для удаления дубликатов, 
+что может быть ресурсоёмким на больших наборах данных.
 
-### Задание 3
+- Использование SUM() OVER (PARTITION BY ...). Аналитические функции, такие как SUM() OVER, 
+могут приводить к дополнительным накладным расходам, особенно в сочетании с большим количеством строк.
 
-Получите информацию, за какой месяц была получена наибольшая сумма платежей, и добавьте информацию по количеству аренд за этот месяц.
+- Фильтрация по DATE(p.payment_date). Использование функции DATE() на столбце p.payment_date 
+делает невозможным использование индекса по payment_date. Это приводит к полному сканированию таблицы.
 
-SELECT
-    DATE_FORMAT(p.payment_date, '%Y-%m') AS payment_month,
-    SUM(p.amount) AS total_amount,
-    COUNT(DISTINCT r.rental_id) AS total_rentals
+- Использование соединения нескольких таблиц (payment, rental, customer, inventory, film).
+При большом количестве записей соединение таблиц через INNER JOIN или кортежный синтаксис 
+(FROM table1, table2) без соответствующих индексов может быть медленным.
+
+Оптимизированный вариант
+
+SELECT DISTINCT
+    CONCAT(c.last_name, ' ', c.first_name) AS customer_name,
+    SUM(p.amount) OVER (PARTITION BY c.customer_id, f.title) AS total_payment
 FROM sakila.payment p
-LEFT JOIN sakila.rental r
-ON p.rental_id = r.rental_id
-GROUP BY DATE_FORMAT(p.payment_date, '%Y-%m')
-ORDER BY total_amount DESC
-LIMIT 1;
+INNER JOIN sakila.rental r ON p.payment_date = r.rental_date
+INNER JOIN sakila.customer c ON r.customer_id = c.customer_id
+INNER JOIN sakila.inventory i ON r.inventory_id = i.inventory_id
+INNER JOIN sakila.film f ON i.film_id = f.film_id
+WHERE p.payment_date >= '2005-07-30 00:00:00' AND p.payment_date < '2005-07-31 00:00:00';
+
+- Снижение использования DISTINCT и избыточных данных позволяет уменьшить накладные расходы.
+- Явные INNER JOIN улучшают читаемость и дают оптимизатору больше информации.
+- Использование диапазона вместо DATE() позволяет задействовать индексы на payment_date.
